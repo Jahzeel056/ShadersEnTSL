@@ -1,0 +1,7 @@
+----------- DATOS -------------
+
+* Según la documentación de ThreeJS, << Para las Mallas/Mesh, las caras deben apuntar 
+hacia el origen del rayo para ser detectadas, las intersecciones del rayo que pasan por 
+la parte posterior de una cara, no se detectarán. Para realizar un raycast en ambas caras 
+de un objeto, se deberá establecer: materialPlano.side = THREE.DoubleSide; >>
+

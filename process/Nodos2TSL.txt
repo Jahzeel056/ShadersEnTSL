@@ -1,0 +1,19 @@
+--------- LOS NODOS (algunos) PUEDEN SER ESCRITOS FORMA ENCADENADA o NO ENCADENADA ----------
+
+.add(), .mul(), .mix(), .div(), etc.
+
+Esto permite que varíe la sintaxis en TSL y así mismo, el comportamiento de los shaders según cómo se escriban.
+
+Ejemplo (Utilizando _mix()_ para interpolar entre tono azul y rojizo ):
+
+// 1. SINTAXIS USANDO _mix()_ ENCADENADO
+materialCubo.colorNode = color( 0x00aaff ).mix( color(0xff0000), sin(time).mul(0.5).add(0.5));
+
+// 2. SINTAXIS SANDO _mix()_ SIN ENCADENAR (externo)
+materialCubo.colorNode = mix(color(0x00aaf), color(0xff0000), sin(time).mul(0.5).add(0.5));
+
+COMO SE VEN EN LOS EJEMPLOS:
+
+- Se pudo usar '.mix()' sin encadenar.
+- Si mix recibe sólo dos argumentos, el primero se toma como el valor final (rojo) y el segundo como el porcentaje.
+- 'color()' NO puede ser encadenado, sirve como 'Función constructora', también llamado 'nodo de entrada', para definir un color desde cero

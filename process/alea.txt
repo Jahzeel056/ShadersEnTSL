@@ -1,0 +1,1 @@
+Se instaló el paquete Alea, que contiene funciones PRNG implementadas en javascript por Johannes Baagøe's.

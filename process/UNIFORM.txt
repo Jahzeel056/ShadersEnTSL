@@ -1,0 +1,42 @@
+Un uniform es una constante para todos los pixeles en un frame, 
+pero entre frame, yo puedo cambiar su valor para dinamizar el flujo.
+ 
+Es decir, reemplazo su valor (tipo acceder a su firección de memoria y desreferencia), 
+pero no la instancia como se haría mediante el uso directo de colorNode.
+
+(¡¡¡¡UN UNIFORM EVITA RECOMPILAR!!!!)
+
+Usualmente: Uso colorNode con asignación directa cuando el color permanecerá por
+mucho tiempo, y colorNode con asignación de un uniform cuando el color cambie muy
+seguido.
+
+
+
+
+
+
+
+
+Ejemplo usando un UNIFORM para cambiar el color de un material:
+
+
+
+import { uniform } from 'three/tsl';
+
+// 1. Creas el uniform FUERA del loop (una sola vez)
+const colorDinamico = uniform( new THREE.Color( 0x00ff00 ) ); // Empieza en verde
+
+// 2. Lo asignas al material (una sola vez)
+materialPlano.colorNode = colorDinamico;
+
+// 3. En tu función animate() o en un evento de click, cambias el valor directamente:
+function animate(tiempo) {
+  reloj.update(tiempo);
+  
+  // ¡Cero recompilación! Cambia el color dinámicamente en cada frame de forma ultra fluida
+  if (unEventoOcurrio) {
+    colorDinamico.value.set( 0x0000ff ); // Cambia a azul instantáneamente
+  }
+
+  renderer.render(scene, camera);
+}

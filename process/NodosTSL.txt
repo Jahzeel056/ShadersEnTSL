@@ -1,0 +1,48 @@
+¿Cuándo usar los nodos y cuáles existen?
+Ya se estudió que estos permiten expresar cálculos matemáticos en la GPU para cada frame, pero, ¿cómo interpretarlos humanamente?
+
+.add(...values) [Suma]: Retorna la suma de dos o más valores. Desplaza un vértice hacia arriba, abajo, o los lados. ¿Ejemplo? posicion.add(vec3(0, 1, 0)) desplaza arriba
+
+.mul(...values) [Multiplicación]: Retorna la multiplicacion de dos o más. Se usa para _Escalar_, _Intensificar_ o _Enmascarar_.
+    * En Geometría: Agranda o reduce el tamaño de un efecto, por ejemplo duplicar la amplitud de una senoidal (efecto).
+    * En colores: Funciona como un potenciómetro o regulador de intensidad (multiplicar por 0 apaga el color y por 1, lo deja igual, 
+    multiplicar por 2 lo hace brillar el doble).
+
+.sin()|.cos() [seno/coseno]: Se pueden usar cuando se requieran bucles infinitos, ondas o animaciones cíclicas. (como viento, agua, 
+o luces intermitentes). De tiempo lineal a comportamientos cíclicos.
+
+.sub(...values) [Resta]: Reducir valores o cambiar direcciones. (retorna la resta de dos o más valores)
+    * En geometría: Mover vértices en dirección opuesta.
+    * En colores/efectos: Resta intensidades para crear sombras o zonas oscuras.
+
+.div(...values) [División]: Retorna la división de dos o más valores. Para _Normalizar_ o _Suavizar_ cambios bruscos de valores muy grandes.
+
+.pow(base, exponente): Potencia matemática. Para agregar curvas de comportamiento no tan lineales, como reflejos enfocados (mientras más cerca de un punto, más brillo).
+
+.mix(valorA, valorB, porcentaje): _INTERPOLA_ o mezcla suavemente dos 'cosas'. Ej: Mezclar color rojo y azul usando sin(time) como porcentaje para cambiar color sin pasar por color negro. [sin verificar]
+
+.abs(x) [valor absoluto de un número o nodo]: Parte positiva del valor o nodo. [Aún no comprobado]
+
+.equal (nodo1, nodo2) [retorna bool]: Determina si DOS notos son iguales.
+
+.equals(a, b) : Retorna true si a es igual a b. (PARA NODOS O VALORES)
+
+.lessThan(value | Node, number, boolean) : Retorna true si es menor.
+
+.greatherThan( value ) : Retorna true si es mayor.
+
+.lessThanEqual( value ) : Retorna true si el primer nodo es menor o igual que el segundo nodo.
+
+.greaterThanEqual( value ) : Retorna true si el primer nodo es mayor o igual que el segundo nodo.
+
+.and(), .or(), .not(), .xor() [Lógicas entre DOS nodos y UN nodo para NOT]
+
+.acos(), .asin(), atan(), .ceil(redondea al entero superior mas cercano)
+
+.clamp(x, min, max) [Limitar]: Limita el valor o nodo entre el mínimo y el máximo.
+
+.degrees(radianes): Convierte un angulo de radian a grados
+
+.distance(a, b) : Retorna la distancia entre dos puntos.
+
+// ESTÁ LLENO DE FUNCIONES MATEMÁTICAS COMO RAÍCES, PRODUCTO CRUZ, DERIVADAS PARCIALES, RESTA CON VALOR ABSOLUTO, Raíz inversa, longitud de vector, etc.

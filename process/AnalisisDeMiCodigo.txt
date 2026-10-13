@@ -1,0 +1,8 @@
+Aclarar mi código (cómo lo pensé): 
+Según yo, hay un color inicial (azulado) y uno final (rojizo), y el porcentaje camgia algo así: Se crea una función seno 
+cuyo valor depende del tiempo de ejecución, imagino que empieza en 0 porque seno 0 es 0 cuando el tiempo de ejecución es 0, 
+luego, se multiplica por 0.5 que es 0 y se le suma 0.5 que da igual a ese mismo 0.5. 
+El color final inicial al aplicar ese shader, debería ser la interpolación entre esos dos colores al 50%, 
+¿no? que debería ser un tono grisáceo/morado como #805580.
+
+materialCubo.colorNode = color( 0x00aaff ).mix( color(0xff0000), sin(time).mul(0.5).add(0.5));

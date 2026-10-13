@@ -1,0 +1,20 @@
+El prompt:
+
+¿cómo la gente crea los patrones deseados en shaders? Tipo, quiero que un efecto se repita en una superficie, 
+pero ¿cómo figuro la ecuación matemática para hacerlo?
+
+-----------La respuesta de Gemini------------
+
+Crear patrones en shaders consiste en manipular las coordenadas UV (que van de [0.0, 1.0] en la superficie) 
+antes de que alimenten a la función que genera tu forma o efecto. La matemática detrás de esto no consiste en 
+adivinar una sola gran ecuación, sino en *combinar bloques de construcción matemáticos simples*.
+
+¿Cómo idear o "figurar" un patrón complejo?
+
+Los desarrolladores de shaders no calculan todo de cabeza en el primer intento; siguen una estrategia de composición por capas:
+
+1. Empiezan en 1D: Prueban la fórmula en un solo eje (x, y). Se debe entender cómo cambia el vlor a lo largo de una línea.
+
+2. Combina ejes X e Y: f(x) + g(y) | f(x) * g(y) para grillas, ajedrez o cruces.
+
+3. Offset por fila.

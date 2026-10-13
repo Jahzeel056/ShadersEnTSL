@@ -1,0 +1,11 @@
+¿Por qué modificar la posición de vértices de una geometría mediante shaders y no 'manualmente' con propiedades?
+
+--> Porque los shaders son PROGAMAS que tienen instrucciones ejecutadas en GPU, mientras que las instrucciones 
+normales (que no son shaders) se ejecutan en CPU.
+
+* Mayor velocidad de procesamiento paralelo y control sobre entidades de datos masivos.
+
+///
+Desde la perspectiva de TSL (Three), escribir en Three Shading Language es como escribir 
+shaders por partes (nodos).
+///

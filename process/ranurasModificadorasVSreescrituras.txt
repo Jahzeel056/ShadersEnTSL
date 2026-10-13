@@ -1,0 +1,22 @@
+-- Información obtenida de la fuente | Enfatizando este aspecto importante de TSL --
+
+Cuando se asigna un nodo a una ranura como _material.colorNode_ , esto reemplaza el color completamente 
+(cálculos anteriores/por defecto a la basura/tiempo perdido). Si en realidad lo que se busca es teñir o 'modular' las propiedades 
+y texturas EXISTENTES del material, se deben usar [Material Accessor Nodes | Nodos de Acceso al material], como son:
+
+* materialColor
+* materialRoughness
+* materialNormal
+
+import { materialColor, materialRoughness, color, float } from 'three/tsl';
+
+// Modulate the existing texture map by multiplying with a custom tint
+material.colorNode = materialColor.mul( color( 0xff5500 ) );
+
+// Scale existing roughness map values
+material.roughnessNode = materialRoughness.mul( float( 0.5 ) );
+
+
+--> TOMAR EN CUENTA que no son clases. Sirven como 'nodos de entrada', ya que a estos se encadenan los shaders modificadores.
+
+_When modifying existing material maps instead of replacing them, use accessor nodes like materialColor and materialNormal_

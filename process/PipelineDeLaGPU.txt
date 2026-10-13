@@ -1,0 +1,6 @@
+La GPU cuenta con diferentes etapas de procesamiento (Explicación Superficial)
+
+1. Etapa de Vértices (positionNode): Primero, la GPU calcula dónde están los puntos del objeto en el espacio 3D.
+
+2. Etapa de Pixeles (colorNode): Mucho después, cuando el cubo ya está posicionado y proyectado en la pantalla, la 
+GPU calcula qué color mostrará cada pixel.

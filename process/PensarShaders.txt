@@ -1,0 +1,53 @@
+Una de las formas más sencillas de colorear pixeles con shaders, que se me ocurrió, 
+fue usando un shader para cada función específica (similar a algo secuencial), tipo:
+
+* Un shader para pintar el fondo (DEL PLANO).
+* Un shader para pintar una función matemática sobre el fondo (DEL PLANO).
+* etc...
+
+Esto, a pesar de ser sencillo, también es obviamente malo para la GPU. La obliga a sobreescribir 
+el valor de color en un pixel cuando anteriormente ya fue calculado, gastando energía porque sí.
+
+En pantallas de alta resolución, esto es uno de los mayores reductores de rendimiento. Llamado 'Overdraw'.
+
+El cálculo matemático unificado mix() [interpolación lineal, y a la vez antialiasing] calcula colores definitivos 
+'en un solo viaje', ahorrando procesamiento. Así que es fundamental tomar la función en cuenta en shaders.
+
+
+** HABLANDO DE SHADERS EN TODO EL ESPACIO **
+
+Calcular los objetos (individuales), así como toda la escena 3D, incluyendo personajes, luces, sombras y agua en una sola 
+ecuación matemática sería casi imposible y una pesadilla de programar.
+
+-----> Aquí es donde entra el Diseño por Capas (O render passes)
+
+Se asigna un SHADER DIFERENTE a CADA OBJETO.
+
+1. GPU Procesa el shader del fondo.
+2. GPU luego procesa el shader del personaje (textura, luces, animaciones)
+
+NO ES COSTOSO: Porque las GPUs modernas tienen un chip inteligente llamado 'Z-buffer'. 
+Si el personaje está al fente de la cámara, la GPU sabe que tapa el fondo, por lo que los pixeles del fondo tapados,
+no se pintan.
+
+
+** EFECTOS DE POST PROCESAMIENTO **
+
+Hay efectos que matemáticamente no se pueden calcular de otra forma que no sea por capas secuenciales. Por ejemplo:
+
+* El Blur o el Brillo (bloom): • Para desenfocar un personaje, necesitas saber qué píxeles tiene al lado. Un píxel no 
+puede saber eso mientras se está pintando a sí mismo.
+
+LA SOLUCIÓN: La GPU hace un Pase de Renderizado 1 (pinta toda la escena normal: fondo y personajes en una textura oculta). 
+Luego, hace un Pase de Renderizado 2 (toma esa textura como si fuera una foto, le aplica un filtro matemático de desenfoque 
+por capas, y finalmente la proyecta en tu monitor).
+
+
+------------ RESUMEN --------------
+
+* Usas la función matemática unificada cuando estás diseñando el material o el efecto visual de un objeto específico. Es la forma 
+más limpia, eficiente y libre de overdraw.
+
+* Usas el código por capas (múltiples shaders o pases de render) cuando los objetos son independientes (un personaje moviéndose sobre 
+un fondo) o cuando necesitas efectos globales complejos que requieren "tomarle una foto" a la pantalla antes de alterarla (como la niebla, 
+el bloom o la corrección de color).

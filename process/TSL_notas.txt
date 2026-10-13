@@ -1,0 +1,46 @@
+NODO: Es una instrucción (como un cálculo) guardada en memoria que está esperando ser ejecutada por la GPU.
+
+--------- NodeMaterial ----------
+
+Es la base fundamental para creación de shaders en ThreeJS cuando se utilizan WebGPU y TSL.
+
+Node material construye un grafo de nodos dinámico y modular dode cada propiedad, desde colores difusos y mapas normales,
+hasta propiedades físicas y desplazamiento de vértices, se expresa como un nodo TSL componible.
+
+
+---------- RELACIÓN entre Standard Materials y Nodos -----------
+
+En ThreeJS WebGPU, (MeshStandardMaterial, MeshPhysicalMaterial, MeshBasicMaterial) _HEREDAN_ o se _MAPEAN_ directamente 
+a sus contrapartes (MeshStandardNodeMaterial, MeshPhysicalNodeMaterial, MeshBasicNodeMaterial), etc.
+
+Lo que significa que se pueden asignar NODOS TSL (fragmentos de código de shader) directamente a las propiedades *Node* 
+de cualquier material. [Manteniendo full compatibilidad con propiedades de materiales standard como: .roughnss, .metalness y .map]
+
+[INFORMACIÓN FUENTE]: https://threejs.org/tsl/#node-material
+
+
+---------------------------
+¿CÓMO USAR TSL?
+---------------------------
+import * as THREE from 'three/webgpu';
+const renderer = new THREE.WebGPURenderer(); // UTILIZAR EL WebGPU renderer (QUE MANEJA WEBGPU Y WEBGL2)
+
+// Codigo ejemplo a un cubo
+const materialCubo = new THREE.MeshStandardNodeMaterial();
+
+// Ajusta el color a azul y modifica el color según el tiempo desde 0(negro) a 1(brillante). 
+// (como seno retorna -1/1, multiplicar por 0.5 lo deja en -0.5 a 0.5, y sumar 0.5 lo deja de 0 a 1)
+// FINALMENTE: Multiplica el color base por el resultado del seno y demás. (resulta en el apagado y encendido del color)
+
+materialCubo.colorNode = color( 0x00aaff ).mul( sin( time ).mul( 0.5 ).add( 0.5 ) );
+
+
+***********
+Basándome en este ejemplo, ¿significa que yo puedo modificar diferentes partes de un material, como su color y geometría 
+desde distintas propiedades de tipo 'Nodo', ¿o técnicamente podría modificar en esta misma propiedad 'colorNode' la posición 
+de los vértices del material?
+
+--> Si, se debe modificar cada 'parte' del material desde su propiedad específica de tipo 'Node/Nodo'. Por ejemplo, 
+en este ejemplo sólo se modifica la propiedad Color de tipo Nodo 'colorNode' para aplicar Shaders sólo a los colores del material, 
+sin afectar su estructura de vértices o demás propiedades.
+***********

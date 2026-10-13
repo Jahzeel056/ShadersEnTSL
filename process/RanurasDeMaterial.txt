@@ -1,0 +1,5 @@
+.positionNode: Sirve para TRANSFORMAR (mover, deformar, escalar o rotar) la ubicación de los vértices de una geometría EXISTENTE.
+Los shaders aplicados corren una vez por cada vértice en paralelo.
+
+
+
